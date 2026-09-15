@@ -203,6 +203,9 @@ section[id]{scroll-margin-top:var(--head-h)}
 .tdot{animation:tdrift var(--du) ease-in-out var(--de) infinite alternate}
 @keyframes tdrift{to{transform:translate(var(--dx),var(--dy))}}
 .targ-pulse{opacity:0;animation:tpulse 6s ease-out infinite;transform-origin:450px 445px}
+.targ-cur{transition:opacity .25s ease}
+.tdot{transition:r .18s ease}
+.targ-wrap{cursor:crosshair}
 @keyframes tpulse{0%{opacity:.5;transform:scale(.78)}70%{opacity:0;transform:scale(1.12)}100%{opacity:0;transform:scale(1.12)}}
 @media (min-width:940px){.hero .plate .hero-net{width:142%;max-width:none;margin:-13% -19%}}
 .net-rings circle{fill:none;stroke:#20272F;stroke-width:1}
@@ -622,7 +625,7 @@ footer{background:#0F1317;color:var(--text);border-top:1px solid var(--line);pad
         <svg class="targ-anim" viewBox="0 0 900 900" aria-hidden="true">
           <circle class="targ-pulse" cx="450" cy="445" r="180" fill="none" stroke="#EA5B2A" stroke-width="1.5"></circle>
           <circle class="tdot" cx="361" cy="470" r="3.5" fill="#FF9A6B" opacity=".9" style="--dx:-0.8px;--dy:0.2px;--du:8.5s;--de:0.9s"></circle><circle class="tdot" cx="351" cy="459" r="2.5" fill="#FF9A6B" opacity=".9" style="--dx:-1.2px;--dy:-7.9px;--du:8.2s;--de:4.5s"></circle><circle class="tdot" cx="593" cy="480" r="3.6" fill="#FF9A6B" opacity=".9" style="--dx:3.4px;--dy:2.5px;--du:5.9s;--de:0.1s"></circle><circle class="tdot" cx="473" cy="454" r="3.4" fill="#F07C4F" opacity=".9" style="--dx:2.2px;--dy:6.1px;--du:7.0s;--de:3.0s"></circle><circle class="tdot" cx="348" cy="434" r="2.9" fill="#F07C4F" opacity=".9" style="--dx:3.6px;--dy:-0.9px;--du:6.7s;--de:5.0s"></circle><circle class="tdot" cx="434" cy="392" r="2.5" fill="#EA5B2A" opacity=".9" style="--dx:-4.6px;--dy:-9.5px;--du:9.6s;--de:2.0s"></circle><circle class="tdot" cx="341" cy="530" r="3.4" fill="#FF9A6B" opacity=".9" style="--dx:-11.0px;--dy:-6.4px;--du:10.5s;--de:2.3s"></circle><circle class="tdot" cx="426" cy="461" r="3.1" fill="#EA5B2A" opacity=".9" style="--dx:6.1px;--dy:-5.1px;--du:5.5s;--de:1.7s"></circle><circle class="tdot" cx="452" cy="413" r="2.5" fill="#FF9A6B" opacity=".9" style="--dx:-8.8px;--dy:-9.7px;--du:9.8s;--de:0.9s"></circle><circle class="tdot" cx="483" cy="517" r="3.6" fill="#F07C4F" opacity=".9" style="--dx:5.9px;--dy:-1.8px;--du:7.3s;--de:2.0s"></circle><circle class="tdot" cx="582" cy="445" r="3.6" fill="#FF9A6B" opacity=".9" style="--dx:2.0px;--dy:11.0px;--du:5.1s;--de:0.9s"></circle><circle class="tdot" cx="429" cy="422" r="3.6" fill="#EA5B2A" opacity=".9" style="--dx:-6.3px;--dy:-5.3px;--du:9.6s;--de:1.6s"></circle><circle class="tdot" cx="428" cy="463" r="2.5" fill="#F07C4F" opacity=".9" style="--dx:3.0px;--dy:-10.7px;--du:7.2s;--de:3.1s"></circle><circle class="tdot" cx="530" cy="426" r="3.0" fill="#FF9A6B" opacity=".9" style="--dx:8.1px;--dy:-7.0px;--du:5.9s;--de:4.5s"></circle><circle class="tdot" cx="450" cy="485" r="3.2" fill="#FF9A6B" opacity=".9" style="--dx:9.7px;--dy:-6.7px;--du:10.7s;--de:4.4s"></circle><circle class="tdot" cx="473" cy="456" r="2.4" fill="#EA5B2A" opacity=".9" style="--dx:0.3px;--dy:-5.4px;--du:9.4s;--de:2.0s"></circle><circle class="tdot" cx="494" cy="366" r="2.6" fill="#FF9A6B" opacity=".9" style="--dx:-7.1px;--dy:4.8px;--du:5.4s;--de:1.1s"></circle><circle class="tdot" cx="393" cy="371" r="2.3" fill="#EA5B2A" opacity=".9" style="--dx:-6.3px;--dy:9.1px;--du:9.5s;--de:0.3s"></circle><circle class="tdot" cx="424" cy="453" r="2.4" fill="#EA5B2A" opacity=".9" style="--dx:-2.9px;--dy:1.6px;--du:5.8s;--de:1.8s"></circle><circle class="tdot" cx="555" cy="433" r="3.2" fill="#EA5B2A" opacity=".9" style="--dx:1.9px;--dy:-7.9px;--du:5.2s;--de:0.1s"></circle><circle class="tdot" cx="406" cy="321" r="2.2" fill="#F07C4F" opacity=".9" style="--dx:3.0px;--dy:-0.4px;--du:9.4s;--de:1.6s"></circle><circle class="tdot" cx="531" cy="482" r="3.2" fill="#EA5B2A" opacity=".9" style="--dx:8.8px;--dy:5.2px;--du:9.2s;--de:4.0s"></circle><circle class="tdot" cx="385" cy="524" r="3.5" fill="#FF9A6B" opacity=".9" style="--dx:8.2px;--dy:-1.8px;--du:9.7s;--de:4.3s"></circle><circle class="tdot" cx="556" cy="454" r="2.7" fill="#EA5B2A" opacity=".9" style="--dx:-10.7px;--dy:-9.4px;--du:5.5s;--de:0.6s"></circle><circle class="tdot" cx="533" cy="374" r="2.7" fill="#F07C4F" opacity=".9" style="--dx:5.2px;--dy:1.8px;--du:7.6s;--de:4.2s"></circle><circle class="tdot" cx="364" cy="436" r="2.6" fill="#FF9A6B" opacity=".9" style="--dx:-9.1px;--dy:-10.5px;--du:10.7s;--de:0.6s"></circle><circle class="tdot" cx="312" cy="254" r="2.3" fill="#7B8590" opacity=".55" style="--dx:-2.4px;--dy:-6.4px;--du:9.7s;--de:2.6s"></circle><circle class="tdot" cx="456" cy="236" r="2.3" fill="#7B8590" opacity=".55" style="--dx:-0.0px;--dy:-4.7px;--du:8.4s;--de:1.3s"></circle><circle class="tdot" cx="249" cy="247" r="2.2" fill="#7B8590" opacity=".55" style="--dx:-5.4px;--dy:-5.1px;--du:7.3s;--de:4.6s"></circle><circle class="tdot" cx="502" cy="632" r="1.8" fill="#7B8590" opacity=".55" style="--dx:7.1px;--dy:-8.3px;--du:6.4s;--de:4.9s"></circle><circle class="tdot" cx="540" cy="283" r="1.9" fill="#7B8590" opacity=".55" style="--dx:7.7px;--dy:6.0px;--du:8.3s;--de:2.6s"></circle><circle class="tdot" cx="314" cy="219" r="2.3" fill="#7B8590" opacity=".55" style="--dx:2.2px;--dy:-3.2px;--du:11.0s;--de:1.4s"></circle><circle class="tdot" cx="228" cy="290" r="1.8" fill="#7B8590" opacity=".55" style="--dx:-2.6px;--dy:2.7px;--du:9.4s;--de:3.2s"></circle><circle class="tdot" cx="271" cy="559" r="2.2" fill="#7B8590" opacity=".55" style="--dx:-4.2px;--dy:5.0px;--du:10.8s;--de:4.9s"></circle><circle class="tdot" cx="604" cy="572" r="2.0" fill="#7B8590" opacity=".55" style="--dx:2.5px;--dy:-2.4px;--du:6.5s;--de:1.0s"></circle><circle class="tdot" cx="551" cy="268" r="2.1" fill="#7B8590" opacity=".55" style="--dx:4.6px;--dy:0.6px;--du:6.2s;--de:1.1s"></circle><circle class="tdot" cx="497" cy="215" r="2.4" fill="#7B8590" opacity=".55" style="--dx:0.0px;--dy:8.9px;--du:7.0s;--de:4.2s"></circle><circle class="tdot" cx="381" cy="261" r="1.9" fill="#7B8590" opacity=".55" style="--dx:7.1px;--dy:-2.0px;--du:8.7s;--de:1.0s"></circle><circle class="tdot" cx="595" cy="338" r="2.0" fill="#7B8590" opacity=".55" style="--dx:2.7px;--dy:0.0px;--du:10.9s;--de:1.7s"></circle><circle class="tdot" cx="299" cy="711" r="1.6" fill="#7B8590" opacity=".55" style="--dx:6.6px;--dy:5.4px;--du:11.5s;--de:0.6s"></circle>
-        </svg>
+        <g class="targ-cur" opacity="0"><circle r="64" fill="none" stroke="#EA5B2A" stroke-width="2"/><line x1="-84" y1="0" x2="-52" y2="0" stroke="#EA5B2A" stroke-width="2"/><line x1="52" y1="0" x2="84" y2="0" stroke="#EA5B2A" stroke-width="2"/><line x1="0" y1="-84" x2="0" y2="-52" stroke="#EA5B2A" stroke-width="2"/><line x1="0" y1="52" x2="0" y2="84" stroke="#EA5B2A" stroke-width="2"/><circle r="2.5" fill="#EA5B2A"/></g></svg>
       </div>
       </div>
     </div>
@@ -780,6 +783,43 @@ footer{background:#0F1317;color:var(--text);border-top:1px solid var(--line);pad
 </script>
 
 
+
+<script>
+(function(){
+  var wrap=document.querySelector('.targ-wrap'); if(!wrap) return;
+  var svg=wrap.querySelector('.targ-anim'), cur=svg.querySelector('.targ-cur');
+  var dots=Array.prototype.slice.call(svg.querySelectorAll('.tdot'));
+  dots.forEach(function(d){d._x=+d.getAttribute('cx');d._y=+d.getAttribute('cy');d._r=+d.getAttribute('r');});
+  var px=0,py=0,active=false,raf=null;
+  function toView(ev){
+    var b=wrap.getBoundingClientRect();
+    return [ (ev.clientX-b.left)/b.width*900, (ev.clientY-b.top)/b.height*900 ];
+  }
+  function tick(){
+    raf=null;
+    cur.setAttribute('transform','translate('+px.toFixed(1)+','+py.toFixed(1)+')');
+    for(var i=0;i<dots.length;i++){
+      var d=dots[i], dx=d._x-px, dy=d._y-py, dist=Math.sqrt(dx*dx+dy*dy);
+      if(active && dist<130){
+        var k=1-dist/130;
+        d.setAttribute('r',(d._r*(1+1.2*k)).toFixed(2));
+        d.style.fill='#FFB380';
+      }else{
+        d.setAttribute('r',d._r);
+        d.style.fill='';
+      }
+    }
+  }
+  function queue(){ tick(); }
+  wrap.addEventListener('pointermove',function(ev){
+    var v=toView(ev); px=v[0]; py=v[1]; active=true;
+    cur.setAttribute('opacity','1'); queue();
+  });
+  wrap.addEventListener('pointerleave',function(){
+    active=false; cur.setAttribute('opacity','0'); queue();
+  });
+})();
+</script>
 
 <script src="consent.js" defer=""></script>
 
