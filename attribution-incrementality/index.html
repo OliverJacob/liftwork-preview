@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attribution & Incrementality Reporting | Liftwork</title>
+<meta name="description" content="Liftwork's reporting shows what your advertising actually caused: attribution across every channel, incrementality testing for proof, and ROAS you can trust.">
+<meta name="theme-color" content="#14181D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314181D'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%23EA5B2A'/%3E%3Cpolygon points='16,12.5 21.5,17.5 21.5,20.3 16,15.3 10.5,20.3 10.5,17.5' fill='%2314181D'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Archivo';font-style:normal;font-weight:400 800;font-display:swap;src:url(../fonts/archivo-var.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+/* ============================================================
+   LIFTWORK
+   visual direction: mission control.
+   deep charcoal ground, one vivid orange accent, cream plates
+   where the work itself is shown. flat, sharp, unadorned.
+   ============================================================ */
+
+:root{
+  --bg:#14181D;
+  --bg-2:#1A2028;
+  --bg-3:#20262F;
+  --line:#2B323C;
+  --text:#F2EEE7;
+  --text-mid:#AEB5BE;
+  --text-dim:#8B929B;
+  --orange:#EA5B2A;
+  --orange-light:#F07C4F;
+  --plate:#F4F1EA;
+  --shadow:rgba(0,0,0,.35);
+
+  --display:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --gutter:clamp(1.25rem,5vw,4.5rem);
+  --head-h:4.5rem;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--display);
+  font-size:clamp(1rem,.96rem + .18vw,1.1rem);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+::selection{background:var(--orange);color:#fff}
+
+.wrap{max-width:1280px;margin:0 auto;padding-inline:var(--gutter)}
+
+/* ---------- type ---------- */
+
+h1,h2,h3{margin:0;font-weight:800;line-height:.95;letter-spacing:-.025em;text-transform:uppercase}
+.display-xl{font-size:clamp(1.9rem,.45rem + 2.45vw,2.8rem);line-height:1.07}
+.display-l {font-size:clamp(1.9rem,1.05rem + 2.9vw,3.7rem)}
+.display-m {font-size:clamp(1.55rem,1.05rem + 2vw,2.7rem)}
+
+.kicker{
+  display:block;
+  font-size:clamp(.7rem,.66rem + .12vw,.78rem);
+  font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--orange-light);
+}
+.hero .kicker{
+  font-size:clamp(.88rem,.78rem + .3vw,1.1rem);
+  font-weight:800;letter-spacing:.23em;
+  margin-bottom:1.9rem;
+}
+.lede{font-size:clamp(1.15rem,1.02rem + .62vw,1.6rem);line-height:1.45;max-width:38ch;color:var(--text-mid)}
+.body{max-width:60ch;color:var(--text-mid);line-height:1.65}
+
+/* ---------- masthead ---------- */
+
+.masthead{
+  position:sticky;top:0;z-index:50;
+  background:rgba(20,24,29,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  height:var(--head-h);
+  display:flex;align-items:center;
+}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;width:100%}
+.wordmark{font-weight:800;font-size:1.2rem;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;color:var(--text);display:inline-flex;align-items:baseline}
+.wordmark::after{content:"";width:.42em;height:.42em;border-radius:50%;background:var(--orange);margin-left:.3em;transform:translateY(-.02em)}
+.masthead nav ul{display:flex;gap:clamp(.9rem,2.2vw,2.1rem);list-style:none;margin:0;padding:0}
+.masthead nav a{
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  border-bottom:2px solid transparent;padding-bottom:2px;
+}
+.masthead nav a:hover,.masthead nav a:focus-visible{border-bottom-color:var(--orange);color:var(--orange-light)}
+.nav-check{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.nav-check:focus-visible ~ .nav-toggle{outline:2px solid var(--orange);outline-offset:4px}
+.nav-toggle{
+  display:none;
+  background:none;border:0;cursor:pointer;padding:.55rem .35rem;
+  margin-right:-.35rem;
+}
+.nav-toggle span{
+  display:block;width:24px;height:2.5px;background:var(--text);
+  margin:5px 0;transition:transform .18s ease, opacity .18s ease;
+}
+.nav-check:checked ~ .nav-toggle span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.nav-check:checked ~ .nav-toggle span:nth-child(2){opacity:0}
+.nav-check:checked ~ .nav-toggle span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+@media (max-width:680px){
+  .nav-toggle{display:block}
+  .masthead nav{
+    position:absolute;top:var(--head-h);left:0;right:0;
+    background:var(--bg);border-bottom:1px solid var(--line);
+    display:none;
+  }
+  .nav-check:checked ~ nav{display:block}
+  .masthead nav ul{
+    flex-direction:column;gap:0;
+    padding:0 var(--gutter);
+  }
+  .masthead nav li{border-top:1px solid var(--line)}
+  .masthead nav a{
+    display:block;padding:1.05rem 0;border-bottom:0;font-size:.8rem;
+  }
+}
+
+/* ---------- sections ---------- */
+
+.poster{padding-block:clamp(4rem,10vh,8rem)}
+.poster--tight{padding-block:clamp(3rem,6vh,5rem)}
+section[id]{scroll-margin-top:var(--head-h)}
+.panel-dark{background:var(--plate);color:#1A2028}
+.panel-dark .body{color:#4A525C}
+.panel-dark .kicker{color:#C6491D}
+.panel-dark .act{color:#1A2028}
+.panel-dark .act:hover,.panel-dark .act:focus-visible{color:var(--orange)}
+.panel-dark .step p{color:#4A525C}
+.panel-dark .steps{border-top-color:rgba(20,24,29,.25)}
+.panel-dark .steps > li{border-bottom-color:rgba(20,24,29,.25)}
+.panel-dark .step-mark img{border:1px solid rgba(20,24,29,.12)}
+.panel-dark .services li{border-top-color:rgba(20,24,29,.18)}
+.panel-dark .panel-ui{border-color:rgba(20,24,29,.25)}
+
+/* ---------- hero: fills the screen, and nothing below it shows ---------- */
+
+.hero{
+  max-width:1400px;
+  min-height:calc(100svh - var(--head-h));
+  display:grid;align-content:center;
+  gap:clamp(2rem,4vw,2.4rem) clamp(2rem,4vw,4rem);
+  grid-template-columns:1fr;
+  grid-template-areas:"copy" "plate" "act";
+  padding-block:clamp(2rem,4vh,3.5rem);
+}
+.hero-copy{grid-area:copy}
+.hero > .plate{grid-area:plate;align-self:center}
+.hero > .actions{grid-area:act;margin-top:0}
+@media (min-width:940px){
+  .hero{grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);grid-template-areas:"copy plate" "act plate";align-content:center}
+  .hero-copy{align-self:end}
+  .hero > .actions{align-self:start}
+}
+.hero h1{margin-block:0 1.8rem;max-width:15ch}
+@media (min-width:940px){.hero h1{max-width:none}}
+.br-lg{display:none}
+@media (min-width:1150px){.br-lg{display:block}}
+
+/* ---------- buttons: a printed slab and a marked link. no outlined boxes. ---------- */
+
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(1.6rem,4vw,3rem);margin-top:clamp(2rem,4vw,2.8rem)}
+
+/* actions: no boxes. a ring is drawn around the label on hover. */
+.act{
+  position:relative;z-index:0;display:inline-block;
+  font:inherit;font-weight:800;font-size:1rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text);background:none;border:0;cursor:pointer;text-decoration:none;
+  padding:.55rem .5rem;
+}
+.act{transition:color .16s ease}
+.act:hover,.act:focus-visible{color:var(--orange-light)}
+.act--quiet{color:var(--text-dim);font-weight:700}
+.act--quiet:hover,.act--quiet:focus-visible{color:var(--orange-light)}
+
+/* ---------- plates ---------- */
+
+.plate{width:100%;display:flex;justify-content:center}
+.plate svg,.plate img{display:block;width:100%;height:auto}
+.hero .plate img{max-height:min(88svh,900px);width:auto;max-width:100%}
+@media (min-width:940px){.hero .plate img{width:150%;max-width:none;max-height:none;margin:-13% -25%}}
+.hero .plate .hero-net{width:100%;max-width:min(92svh,820px);height:auto}
+@media (min-width:940px){.hero .plate .hero-net{width:142%;max-width:none;margin:-13% -19%}}
+.net-rings circle{fill:none;stroke:#20272F;stroke-width:1}
+.net-lines line{stroke:#2C343F;stroke-width:1}
+.net-nodes circle{fill:#1C222B;stroke:#39424E;stroke-width:1.25}
+.net-nodes path,.net-nodes text,.net-nodes rect{fill:#C3CAD3;transition:fill .25s ease}
+.net-nodes .node circle{transition:stroke .25s ease}
+.net-nodes .node:hover circle{stroke:#5A6572}
+.n-googleads:hover path{fill:#4285F4}
+.n-meta:hover path{fill:#0081FB}
+.n-amazon:hover path{fill:#FF9900}
+.n-tiktok:hover path{fill:#FE2C55}
+.n-instagram:hover path{fill:#E4405F}
+.n-youtube:hover path{fill:#FF0000}
+.n-linkedin:hover path{fill:#0A66C2}
+.n-pinterest:hover path{fill:#E60023}
+.n-openai:hover path{fill:#10A37F}
+.n-googleanalytics:hover path{fill:#F9AB00}
+.n-snapchat:hover path{fill:#FFFC00}
+.n-reddit:hover path{fill:#FF4500}
+.n-microsoft:hover rect:nth-of-type(1){fill:#F25022}
+.n-microsoft:hover rect:nth-of-type(2){fill:#7FBA00}
+.n-microsoft:hover rect:nth-of-type(3){fill:#00A4EF}
+.n-microsoft:hover rect:nth-of-type(4){fill:#FFB900}
+.n-ttd .img-color{opacity:0;transition:opacity .25s ease}
+.n-ttd:hover .img-color{opacity:1}
+.n-ttd .img-grey{transition:opacity .25s ease}
+.n-ttd:hover .img-grey{opacity:0}
+.pulse{fill:var(--orange);opacity:0;animation:net-pulse 6s cubic-bezier(.5,.05,.55,.95) infinite;animation-delay:var(--d)}
+@keyframes net-pulse{
+  0%{transform:translate(var(--x0),var(--y0));opacity:0}
+  8%{opacity:.95}
+  46%{transform:translate(500px,500px);opacity:.95}
+  54%{transform:translate(500px,500px);opacity:0}
+  100%{transform:translate(500px,500px);opacity:0}
+}
+.net-halo{animation:net-breathe 5.5s ease-in-out infinite alternate;transform-origin:500px 500px}
+@keyframes net-breathe{from{opacity:.75;transform:scale(1)}to{opacity:1;transform:scale(1.08)}}
+.hero-bleed{overflow:clip}
+.raking{transform-origin:20% 88%;animation:rake 36s ease-in-out infinite alternate}
+@keyframes rake{
+  from{transform:skewX(-2deg) scaleX(1)}
+  to  {transform:skewX(-13deg) scaleX(1.16)}
+}
+
+/* ---------- split ---------- */
+
+.split{display:grid;gap:clamp(2.4rem,5vw,4.5rem);grid-template-columns:1fr;align-items:center}
+@media (min-width:940px){.split{grid-template-columns:1.1fr .9fr}}
+.split .plate img{max-width:34rem;margin-inline:auto}
+.radar-wrap{position:relative;max-width:34rem;margin-inline:auto;background:var(--plate);border:1px solid var(--line);padding:clamp(1.2rem,2.5vw,2rem)}
+.radar-key{
+  position:absolute;top:1rem;right:1.2rem;
+  display:flex;flex-direction:column;gap:.3rem;
+}
+.radar-key span{
+  display:flex;align-items:center;gap:.45rem;
+  font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#4A5560;
+}
+.radar-key i{width:.62rem;height:.62rem;display:inline-block}
+@media (min-width:940px){.split--flip > div:first-child{order:2}.split--flip .plate{order:1}}
+
+/* ---------- steps ---------- */
+
+.steps{list-style:none;margin:2.6rem 0 0;padding:0;display:grid;gap:clamp(1rem,1.6vw,1.4rem);grid-template-columns:1fr}
+@media (min-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.steps > li{border:1px solid rgba(20,24,29,.18);background:#FBF9F4;padding:1.5rem 1.4rem 1.6rem}
+.step-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
+.step-title{display:flex;align-items:baseline;gap:.9rem}
+.step-num{font-weight:800;font-size:.78rem;letter-spacing:.2em;color:#C6491D}
+.step-head h3{font-size:clamp(1.3rem,1rem + 1vw,1.7rem)}
+.step-head img{width:3.4rem;height:3.4rem;display:block;border:1px solid rgba(20,24,29,.12)}
+.steps p{margin:0;color:#4A525C;line-height:1.6;font-size:.98rem}
+.step-spec{margin-top:2.1rem;padding-top:.95rem;border-top:1px solid rgba(20,24,29,.14);font-size:.73rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#A08469;line-height:2.1}
+.step-spec .sep{color:var(--orange);font-size:1.15em;padding:0 .28em;vertical-align:-.05em}
+
+/* ---------- agents ---------- */
+
+.agents{
+  list-style:none;margin:2.8rem 0 0;padding:0;
+  display:grid;gap:clamp(1.2rem,2vw,1.6rem);grid-template-columns:1fr;
+}
+@media (min-width:640px){.agents{grid-template-columns:1fr 1fr}}
+@media (min-width:1060px){.agents{grid-template-columns:repeat(4,1fr)}}
+.agents li{
+  border:1px solid var(--line);
+  background:var(--bg-2);
+  padding:1.5rem 1.4rem 1.7rem;
+  display:flex;flex-direction:column;gap:.9rem;
+}
+.agents img{width:4.4rem;height:4.4rem;display:block}
+.agent-num{
+  font-weight:800;font-size:.78rem;letter-spacing:.2em;color:var(--orange-light);
+}
+.agent-name{font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.95;font-size:clamp(1.35rem,1rem + 1vw,1.8rem);color:var(--text)}
+.agent-what{font-size:1rem;color:var(--text-mid);line-height:1.58}
+
+/* ---------- product panels ---------- */
+
+.panels{display:grid;gap:clamp(1.8rem,3vw,2.6rem);grid-template-columns:1fr;margin-top:2.8rem}
+@media (min-width:900px){.panels{grid-template-columns:repeat(3,1fr)}}
+.panel-ui{border:1px solid var(--line);background:var(--plate)}
+.panel-ui svg,.panel-ui img{display:block;width:100%;height:auto}
+.panel-cap{margin-top:1.1rem}
+.panel-cap h3{font-size:clamp(1.05rem,1rem + .35vw,1.3rem);margin-bottom:.45rem}
+.panel-cap p{margin:0;color:var(--text-mid);font-size:1rem;line-height:1.55;max-width:34ch}
+
+/* ---------- the row line ---------- */
+
+.row-line{
+  margin:0;font-weight:800;text-transform:uppercase;letter-spacing:-.025em;line-height:1.04;
+  font-size:clamp(1.6rem,.9rem + 2.6vw,2.9rem);
+}
+.row-line span{display:inline-block;margin-right:.5em}
+.row-line .dot{color:var(--orange);margin-right:0}
+.panel-dark .row-line .dot{color:var(--orange-light)}
+
+/* ---------- audiences ---------- */
+
+.audiences{list-style:none;margin:2.8rem 0 0;padding:0;display:grid;gap:clamp(1.2rem,2vw,1.6rem);grid-template-columns:1fr}
+@media (min-width:720px){.audiences{grid-template-columns:1fr 1fr}}
+.audiences li{border:1px solid var(--line);background:var(--bg-2);padding:1.3rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.audiences img{width:5.2rem;height:5.2rem;display:block}
+.audiences h3{font-size:clamp(1.35rem,1rem + 1vw,1.8rem)}
+.audiences p{margin:0;color:var(--text-mid);line-height:1.6;max-width:44ch}
+
+/* ---------- funnel rail ---------- */
+
+.svc-name{font-weight:800;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1.1rem,1rem + .5vw,1.35rem);color:#1A2028}
+.svc-name .svc-num{font-weight:800;font-size:.72rem;letter-spacing:.2em;color:#C6491D;margin-right:.7rem;vertical-align:.15em}
+.funnel{margin-top:2.6rem}
+.funnel-head{display:none}
+.funnel-rows{list-style:none;margin:0;padding:0;border-top:1px solid rgba(20,24,29,.25)}
+.funnel-rows li{display:grid;grid-template-columns:1fr;gap:.9rem 2.5rem;padding:1.4rem 0;border-bottom:1px solid rgba(20,24,29,.25)}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem 1.15rem;margin-top:.75rem}
+.chips span{position:relative;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A525C;cursor:default;transition:color .18s ease;padding-bottom:3px}
+.chips span::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .22s ease}
+.chips span:hover{color:#14181D}
+.chips span:hover::after{transform:scaleX(1)}
+.track{display:none}
+@media (min-width:900px){
+  .funnel-head{display:grid;grid-template-columns:minmax(0,2.1fr) repeat(3,1fr);gap:0 2.5rem;padding-bottom:.7rem}
+  .funnel-head span{font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#7A828C;text-align:center}
+  .funnel-head span:first-child{text-align:left}
+  .funnel-rows li{grid-template-columns:minmax(0,2.1fr) 3fr;align-items:center}
+  .track{display:grid;grid-template-columns:repeat(3,1fr);align-self:stretch;align-items:center;position:relative;min-height:3rem}
+  .track::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to right,rgba(20,24,29,.14) 0,rgba(20,24,29,.14) 1px,transparent 1px,transparent 33.333%);}
+  .track::after{content:"";position:absolute;top:0;bottom:0;right:0;width:1px;background:rgba(20,24,29,.14)}
+  .track i{grid-row:1;height:8px;background:var(--orange);border-radius:4px;margin-inline:.5rem}
+  .track i.cover-outline{background:transparent;border:2px dashed var(--orange);height:12px;border-radius:6px}
+}
+.text-link{font-weight:800;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:#C6491D;border-bottom:2px solid rgba(198,73,29,.35);padding-bottom:.25rem;transition:border-color .16s ease}
+.text-link:hover,.text-link:focus-visible{border-bottom-color:#C6491D}
+
+/* ---------- audience detail points ---------- */
+
+.aud-points{list-style:none;margin:.3rem 0 0;padding:0;display:grid;gap:.35rem}
+.aud-points li{position:relative;padding-left:1.15rem;color:var(--text-mid);font-size:.95rem;line-height:1.5}
+.aud-points li::before{content:"";position:absolute;left:0;top:.62em;width:.55rem;height:2px;background:var(--orange)}
+
+/* ---------- service pillars ---------- */
+
+.pillar{margin-top:clamp(3rem,6vw,4.5rem)}
+.pillar-head{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.pillar-head h3{font-size:clamp(1.5rem,1.1rem + 1.6vw,2.3rem)}
+.pillar-head .pillar-num{font-weight:800;font-size:.78rem;letter-spacing:.2em;color:#C6491D}
+.pillar > p{margin:.8rem 0 0;max-width:56ch;color:#4A525C;line-height:1.6}
+.tactics{list-style:none;margin:1.8rem 0 0;padding:0;display:grid;gap:clamp(1rem,1.6vw,1.4rem);grid-template-columns:1fr}
+@media (min-width:640px){.tactics{grid-template-columns:1fr 1fr}}
+@media (min-width:1060px){.tactics{grid-template-columns:repeat(3,1fr)}}
+.tactics li{
+  background:#FBF9F4;border:1px solid rgba(20,24,29,.16);
+  padding:1.4rem 1.3rem 1.5rem;display:flex;flex-direction:column;gap:.7rem;
+}
+.tactic-tag{font-weight:800;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#C6491D}
+.tactic-name{font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;font-size:clamp(1.1rem,1rem + .5vw,1.35rem);color:#1A2028}
+.tactic-what{font-size:.95rem;color:#4A525C;line-height:1.55}
+
+/* cream contact form */
+.panel-dark label{color:#5A626C}
+.panel-dark input,.panel-dark textarea{color:#1A2028;border-bottom-color:rgba(20,24,29,.35)}
+.panel-dark input:focus,.panel-dark textarea:focus{border-bottom-color:var(--orange)}
+.panel-dark .form-note{color:#5A626C}
+.panel-dark .form-note.err{color:#C6491D}
+.panel-dark .form-note.ok{color:#1A2028}
+
+/* ---------- contact ---------- */
+
+form{max-width:44rem;margin-top:2.4rem}
+.fields{display:grid;gap:1.6rem;grid-template-columns:1fr}
+@media (min-width:640px){.fields--2{grid-template-columns:1fr 1fr}}
+label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.5rem}
+input,textarea{
+  width:100%;font-family:var(--display);font-size:1.05rem;color:var(--text);
+  background:transparent;border:0;border-bottom:2px solid var(--line);padding:.65rem 0;border-radius:0;
+}
+textarea{min-height:6.5rem;resize:vertical}
+input:focus,textarea:focus{outline:0;border-bottom-color:var(--orange)}
+
+/* ---------- footer ---------- */
+
+footer{background:#0F1317;color:var(--text);border-top:1px solid var(--line);padding-block:clamp(3rem,7vw,4.5rem) 2rem}
+.foot-grid{display:grid;gap:2.4rem;grid-template-columns:1fr}
+@media (min-width:680px){.foot-grid{grid-template-columns:1fr 1.5fr 1fr}}
+.foot-col .foot-h{margin:0 0 1.1rem;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-light)}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.foot-col li,.foot-col a{font-size:.97rem;color:var(--text-mid);text-decoration:none}
+.foot-col a:hover,.foot-col a:focus-visible{color:#fff}
+.colophon{
+  margin-top:clamp(2.4rem,6vw,3.6rem);padding-top:1.4rem;
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);
+}
+
+/* ---------- a11y ---------- */
+
+:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+.panel-dark :focus-visible{outline-color:var(--orange-light)}
+.skip{position:absolute;left:-9999px;background:var(--orange);color:#fff;padding:.9rem 1.3rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.76rem;z-index:100}
+.skip:focus{left:1rem;top:1rem}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-note{margin-top:1.4rem;font-size:.95rem;line-height:1.5;min-height:1.4em;color:var(--text-dim)}
+.form-note.err{color:var(--orange-light);font-weight:700}
+.form-note.ok{color:var(--text);font-weight:700}
+.act[disabled]{opacity:.55;cursor:wait}
+</style>
+<style>
+.faq{max-width:52rem;margin-top:2.4rem}
+.faq details{border-top:1px solid rgba(20,24,29,.22);padding:1.1rem 0}
+.faq details:last-child{border-bottom:1px solid rgba(20,24,29,.22)}
+.faq summary{cursor:pointer;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;font-size:1.05rem;color:#1A2028;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq summary::after{content:"+";color:var(--orange);font-weight:800;font-size:1.3rem}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{margin:.8rem 0 0;color:#4A525C;line-height:1.65;max-width:60ch}
+.page-hero{padding-block:clamp(3rem,7vh,5rem) clamp(2.5rem,5vh,3.5rem)}
+.lift-chart{width:100%;max-width:34rem;height:auto}
+.roas-report{width:100%;max-width:34rem;height:auto}
+.lift-chart .lc-ln{stroke-dasharray:1;stroke-dashoffset:1;animation:lc-draw 1.5s cubic-bezier(.4,0,.2,1) forwards}
+.lift-chart .lc-ln2{animation-delay:.2s}
+.lift-chart .lc-fade{opacity:0;animation:lc-fade .8s ease-out 1.4s forwards}
+@keyframes lc-draw{to{stroke-dashoffset:0}}
+@keyframes lc-fade{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.lift-chart .lc-ln{animation:none;stroke-dashoffset:0}.lift-chart .lc-fade{animation:none;opacity:1}}
+</style>
+<style>.umm{width:100%;max-width:34rem;height:auto}
+.benefits{display:grid;gap:2.2rem 2.5rem;grid-template-columns:1fr;margin-top:2.6rem}
+@media (min-width:720px){.benefits{grid-template-columns:1fr 1fr}}
+@media (min-width:1060px){.benefits{grid-template-columns:repeat(3,1fr)}}
+.benefit{border-top:2px solid rgba(20,24,29,.75);padding-top:1rem}
+.benefit h3{font-size:1.12rem;margin-bottom:.5rem}
+.benefit p{margin:0;color:#4A525C;line-height:1.6;font-size:.96rem}</style>
+  <link rel="stylesheet" href="../consent.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="wordmark" href="../index.html">Liftwork</a>
+    <input type="checkbox" id="nav-check" class="nav-check" aria-label="Menu">
+    <label for="nav-check" class="nav-toggle" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </label>
+    <nav id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../integrations/index.html">Integrations</a></li>
+        <li><a href="../media-mix-modeling/index.html">Planning</a></li>
+        <li><a href="../attribution-incrementality/index.html">Analysis</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="wrap page-hero">
+    <div class="split">
+      <div>
+        <span class="kicker">Analysis</span>
+        <h1 class="display-l" style="margin-block:1.3rem 1.6rem;max-width:20ch">Analysis that measures real results.</h1>
+        <p class="lede">One measurement framework covering ROAS, attribution, and lift testing for every channel you run.</p>
+      </div>
+      <div class="plate">
+        <svg class="umm" viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Advertising and analytics platforms feeding one unified measurement model, producing a channel table with spend, CPA, conversions, and ROAS.">
+          <rect x="330" y="14" width="340" height="52" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/>
+          <text x="500" y="46" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="800" letter-spacing="2" fill="#F2EEE7" text-anchor="middle">ONE MEASUREMENT MODEL</text>
+          <g stroke="#2C343F" stroke-width="1.5" fill="none">
+            <line x1="440" y1="66" x2="440" y2="110"/><line x1="480" y1="66" x2="480" y2="110"/>
+            <line x1="520" y1="66" x2="520" y2="110"/><line x1="560" y1="66" x2="560" y2="110"/>
+            <path d="M 230 158 H 265 V 275 H 300" fill="none"/><path d="M 230 253 H 265 V 275 H 300" fill="none"/><path d="M 230 348 H 265 V 275 H 300" fill="none"/><path d="M 230 443 H 265 V 275 H 300" fill="none"/><path d="M 770 158 H 735 V 275 H 700" fill="none"/><path d="M 770 253 H 735 V 275 H 700" fill="none"/><path d="M 770 348 H 735 V 275 H 700" fill="none"/><path d="M 770 443 H 735 V 275 H 700" fill="none"/>
+            <line x1="500" y1="440" x2="500" y2="490"/>
+          </g>
+          <g><rect x="30" y="130" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(46,145) scale(1.0833)"><path fill="#4285F4" d="M3.9998 22.9291C1.7908 22.9291 0 21.1383 0 18.9293s1.7908-3.9998 3.9998-3.9998 3.9998 1.7908 3.9998 3.9998-1.7908 3.9998-3.9998 3.9998zm19.4643-6.0004L15.4632 3.072C14.3586 1.1587 11.9121.5028 9.9988 1.6074S7.4295 5.1585 8.5341 7.0718l8.0009 13.8567c1.1046 1.9133 3.5511 2.5679 5.4644 1.4646 1.9134-1.1046 2.568-3.5511 1.4647-5.4644zM7.5137 4.8438L1.5645 15.1484A4.5 4.5 0 0 1 4 14.4297c2.5597-.0075 4.6248 2.1585 4.4941 4.7148l3.2168-5.5723-3.6094-6.25c-.4499-.7793-.6322-1.6394-.5878-2.4784z"/></g><text x="82" y="164" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">Google Ads</text><rect x="30" y="225" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(46,240) scale(1.0833)"><path fill="#0081FB" d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></g><text x="82" y="259" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">Meta</text><rect x="30" y="320" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(46,335) scale(1.0833)"><path fill="#FE2C55" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></g><text x="82" y="354" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">TikTok</text><rect x="30" y="415" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(46,430) scale(1.0833)"><path fill="#FF9900" d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/></g><text x="82" y="449" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">Amazon Ads</text><rect x="770" y="130" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><image x="784" y="143" width="30" height="30" href="data:image/png;base64,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"/><text x="822" y="164" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">The Trade Desk</text><rect x="770" y="225" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(786,240) scale(1.0833)"><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></g><text x="822" y="259" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">YouTube</text><rect x="770" y="320" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(786,335) scale(1.0833)"><path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></g><text x="822" y="354" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">LinkedIn</text><rect x="770" y="415" width="200" height="56" rx="14" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><g transform="translate(786,430) scale(1.0833)"><path fill="#F9AB00" d="M22.84 2.9982v17.9987c.0086 1.6473-1.3197 2.9897-2.967 2.9984a2.9808 2.9808 0 01-.3677-.0208c-1.528-.226-2.6477-1.5558-2.6105-3.1V3.1204c-.0369-1.5458 1.0856-2.8762 2.6157-3.1 1.6361-.1915 3.1178.9796 3.3093 2.6158.014.1201.0208.241.0202.3619zM4.1326 18.0548c-1.6417 0-2.9726 1.331-2.9726 2.9726C1.16 22.6691 2.4909 24 4.1326 24s2.9726-1.3309 2.9726-2.9726-1.331-2.9726-2.9726-2.9726zm7.8728-9.0098c-.0171 0-.0342 0-.0513.0003-1.6495.0904-2.9293 1.474-2.891 3.1256v7.9846c0 2.167.9535 3.4825 2.3505 3.763 1.6118.3266 3.1832-.7152 3.5098-2.327.04-.1974.06-.3983.0593-.5998v-8.9585c.003-1.6474-1.33-2.9852-2.9773-2.9882z"/></g><text x="822" y="449" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#C9CFD7">Analytics</text></g>
+          <rect x="300" y="110" width="400" height="330" rx="18" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/>
+          <g stroke="#252C35" stroke-width="1">
+            <line x1="330" y1="180" x2="670" y2="180"/><line x1="330" y1="240" x2="670" y2="240"/>
+            <line x1="330" y1="300" x2="670" y2="300"/><line x1="330" y1="360" x2="670" y2="360"/>
+          </g>
+          <defs><linearGradient id="ummfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#EA5B2A" stop-opacity=".35"/><stop offset="100%" stop-color="#EA5B2A" stop-opacity="0"/>
+          </linearGradient></defs>
+          <path d="M 330 380 C 400 330 440 350 500 300 C 560 250 610 230 670 190 L 670 410 L 330 410 Z" fill="url(#ummfill)"/>
+          <path d="M 330 380 C 400 330 440 350 500 300 C 560 250 610 230 670 190" fill="none" stroke="#EA5B2A" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M 330 340 C 400 350 460 310 520 330 C 580 350 620 320 670 310" fill="none" stroke="#5A636D" stroke-width="2" stroke-linecap="round"/>
+          <rect x="330" y="132" width="64" height="20" rx="6" fill="#EA5B2A"/><rect x="339" y="139" width="46" height="6" rx="3" fill="#14181D" opacity=".55"/>
+          <rect x="404" y="132" width="64" height="20" rx="6" fill="#39424E"/><rect x="413" y="139" width="46" height="6" rx="3" fill="#C9CFD7" opacity=".5"/>
+          <g font-family="Archivo,Helvetica,Arial,sans-serif" font-size="12" font-weight="800" text-anchor="middle">
+            <rect x="318" y="396" width="70" height="26" rx="13" fill="#242B34" stroke="#39424E"/><text x="353" y="413" fill="#C9CFD7" letter-spacing="1">MMM</text>
+            <rect x="398" y="396" width="120" height="26" rx="13" fill="#242B34" stroke="#39424E"/><text x="458" y="413" fill="#C9CFD7" letter-spacing="1">ATTRIBUTION</text>
+            <rect x="528" y="396" width="106" height="26" rx="13" fill="#3A2519" stroke="#EA5B2A"/><text x="581" y="413" fill="#F07C4F" letter-spacing="1">LIFT TESTS</text>
+          </g>
+          <rect x="150" y="490" width="700" height="245" rx="18" fill="#1C222B" stroke="#39424E" stroke-width="1.25"/><text x="185" y="530" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="13" font-weight="800" letter-spacing="1" fill="#8B929B" text-anchor="start">CHANNEL</text><text x="420" y="530" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="13" font-weight="800" letter-spacing="1" fill="#8B929B" text-anchor="end">SPEND</text><text x="550" y="530" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="13" font-weight="800" letter-spacing="1" fill="#8B929B" text-anchor="end">CPA</text><text x="665" y="530" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="13" font-weight="800" letter-spacing="1" fill="#8B929B" text-anchor="end">CONV.</text><text x="790" y="530" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="13" font-weight="800" letter-spacing="1" fill="#8B929B" text-anchor="end">ROAS</text><line x1="170" y1="545" x2="830" y2="545" stroke="#2B323C" stroke-width="1"/><text x="185" y="585" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#E8EBEF">Google Ads</text><text x="420" y="585" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">$102,000</text><text x="550" y="585" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">$60</text><text x="665" y="585" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">1,700</text><text x="790" y="585" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="800" fill="#EA5B2A" text-anchor="end">2.0x</text><line x1="170" y1="605" x2="830" y2="605" stroke="#242B34" stroke-width="1"/><text x="185" y="643" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#E8EBEF">Amazon Ads</text><text x="420" y="643" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">$75,400</text><text x="550" y="643" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">$15</text><text x="665" y="643" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">5,027</text><text x="790" y="643" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="800" fill="#EA5B2A" text-anchor="end">4.3x</text><line x1="170" y1="663" x2="830" y2="663" stroke="#242B34" stroke-width="1"/><text x="185" y="701" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#E8EBEF">Meta</text><text x="420" y="701" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">$90,000</text><text x="550" y="701" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">$75</text><text x="665" y="701" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" fill="#AEB5BE" text-anchor="end">1,200</text><text x="790" y="701" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="15" font-weight="800" fill="#EA5B2A" text-anchor="end">1.5x</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="panel-dark poster--tight">
+    <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="kicker">Lift testing</span>
+        <h2 class="display-m" style="margin-block:1.3rem 1.6rem;max-width:22ch">Measuring true advertising impact with lift reporting.</h2>
+        <p class="body">A controlled experiment: ads run in one set of matched markets and pause in another, and the difference in sales is the measured impact of your advertising.</p>
+      </div>
+      <div class="plate">
+        <svg class="lift-chart" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A lift test chart: exposed and control markets track together until the test starts, then the exposed line rises above control, with the shaded gap marked as lift.">
+<defs>
+<linearGradient id="liftfill" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#EA5B2A" stop-opacity=".34"/>
+<stop offset="1" stop-color="#EA5B2A" stop-opacity="0"/>
+</linearGradient>
+<filter id="liftglow" x="-40%" y="-40%" width="180%" height="180%">
+<feGaussianBlur stdDeviation="7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect x="4" y="4" width="992" height="692" rx="28" fill="#171C22" stroke="#2B323C" stroke-width="1.5"/>
+<g stroke="#1F262F" stroke-width="1"><line x1="110" y1="200" x2="910" y2="200"/><line x1="110" y1="325" x2="910" y2="325"/><line x1="110" y1="450" x2="910" y2="450"/></g>
+<line x1="110" y1="95" x2="110" y2="580" stroke="#39424E" stroke-width="2"/>
+<line x1="110" y1="580" x2="910" y2="580" stroke="#39424E" stroke-width="2"/>
+<text x="72" y="345" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="2.5" fill="#8B929B" transform="rotate(-90 72 345)" text-anchor="middle">SALES</text>
+<text x="510" y="634" text-anchor="middle" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="2.5" fill="#8B929B">TIME</text>
+<line x1="360" y1="140" x2="360" y2="580" stroke="#6E7680" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+<text x="360" y="122" text-anchor="middle" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2.5" fill="#8B929B">TEST START</text>
+<path class="lc-fade" d="M360 505 C 520 468, 690 350, 830 218 L 830 412 C 690 448, 520 480, 360 505 Z" fill="url(#liftfill)"/>
+<path class="lc-ln" pathLength="1" d="M110 545 C 200 538, 300 518, 360 505 C 520 480, 690 448, 830 412" fill="none" stroke="#AEB5BE" stroke-width="4.5" stroke-linecap="round"/>
+<path class="lc-ln lc-ln2" pathLength="1" d="M110 545 C 200 538, 300 518, 360 505 C 520 468, 690 350, 830 218" fill="none" stroke="#EA5B2A" stroke-width="5.5" stroke-linecap="round" filter="url(#liftglow)"/>
+<g class="lc-fade">
+<circle cx="830" cy="412" r="6" fill="#AEB5BE"/>
+<circle cx="830" cy="218" r="7" fill="#EA5B2A"/>
+<text x="812" y="186" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" font-weight="800" letter-spacing="2" fill="#F07C4F">EXPOSED</text>
+<text x="812" y="456" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" font-weight="800" letter-spacing="2" fill="#AEB5BE">CONTROL</text>
+<line x1="866" y1="236" x2="866" y2="394" stroke="#F2EEE7" stroke-width="3"/>
+<path d="M866 224 L 859 240 L 873 240 Z" fill="#F2EEE7"/>
+<path d="M866 406 L 859 390 L 873 390 Z" fill="#F2EEE7"/>
+<text x="888" y="322" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="21" font-weight="800" letter-spacing="2" fill="#F2EEE7">LIFT</text>
+</g>
+</svg>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+  <section class="wrap poster--tight">
+    <div class="split split--flip">
+      <div>
+        <span class="kicker">Your reports</span>
+        <h2 class="display-m" style="margin-block:1.3rem 1.6rem;max-width:20ch">The reporting deliverable.</h2>
+        <p class="body">ROAS by channel, campaign, and creative. Cost per sale against target. Attribution and lift test results.</p>
+      </div>
+      <div class="plate">
+        <svg class="roas-report" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A performance report showing ROAS and cost per sale by channel, expanded into campaigns and creatives.">
+<rect x="4" y="4" width="992" height="692" rx="28" fill="#171C22" stroke="#2B323C" stroke-width="1.5"/>
+<text x="64" y="84" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="22" font-weight="800" letter-spacing="3" fill="#F2EEE7">PERFORMANCE REPORT</text>
+<text x="936" y="84" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="2.5" fill="#8B929B">CHANNEL &#183; CAMPAIGN &#183; CREATIVE</text>
+<text x="64" y="158" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2.5" fill="#8B929B">NAME</text>
+<text x="520" y="158" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2.5" fill="#8B929B">ROAS</text>
+<text x="936" y="158" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2.5" fill="#8B929B">CPS</text>
+<line x1="52" y1="174" x2="948" y2="174" stroke="#2B323C" stroke-width="1.5"/><text x="64" y="208" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" font-weight="800" letter-spacing="1.5" fill="#F2EEE7">SEARCH</text><rect x="520" y="195" width="202" height="14" rx="7" fill="#EA5B2A" opacity="1"/><text x="832" y="208" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#F07C4F">4.2x</text><text x="936" y="208" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$38</text><line x1="52" y1="230" x2="948" y2="230" stroke="#20262F" stroke-width="1"/><text x="104" y="264" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="600" fill="#AEB5BE">Brand Core</text><rect x="520" y="251" width="245" height="14" rx="7" fill="#EA5B2A" opacity=".62"/><text x="832" y="264" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#AEB5BE">5.1x</text><text x="936" y="264" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$29</text><line x1="52" y1="286" x2="948" y2="286" stroke="#20262F" stroke-width="1"/><text x="104" y="320" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="600" fill="#AEB5BE">Non-brand Growth</text><rect x="520" y="307" width="173" height="14" rx="7" fill="#EA5B2A" opacity=".62"/><text x="832" y="320" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#AEB5BE">3.6x</text><text x="936" y="320" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$47</text><line x1="52" y1="342" x2="948" y2="342" stroke="#20262F" stroke-width="1"/><path d="M64 368 L 76 368 L 70 377 Z" fill="#8B929B"/><text x="86" y="376" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" font-weight="800" letter-spacing="1.5" fill="#F2EEE7">SOCIAL</text><rect x="520" y="363" width="163" height="14" rx="7" fill="#EA5B2A" opacity="1"/><text x="832" y="376" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#F07C4F">3.4x</text><text x="936" y="376" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$52</text><line x1="52" y1="398" x2="948" y2="398" stroke="#20262F" stroke-width="1"/><path d="M104 424 L 116 424 L 110 433 Z" fill="#8B929B"/><text x="126" y="432" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="600" fill="#AEB5BE">Retargeting</text><rect x="520" y="419" width="197" height="14" rx="7" fill="#EA5B2A" opacity=".62"/><text x="832" y="432" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#AEB5BE">4.1x</text><text x="936" y="432" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$41</text><line x1="52" y1="454" x2="948" y2="454" stroke="#20262F" stroke-width="1"/><text x="144" y="488" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="500" fill="#8B929B">UGC Video 30s</text><rect x="520" y="475" width="231" height="14" rx="7" fill="#EA5B2A" opacity=".38"/><text x="832" y="488" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#8B929B">4.8x</text><text x="936" y="488" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$33</text><line x1="52" y1="510" x2="948" y2="510" stroke="#20262F" stroke-width="1"/><text x="144" y="544" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="500" fill="#8B929B">Static Carousel</text><rect x="520" y="531" width="154" height="14" rx="7" fill="#EA5B2A" opacity=".38"/><text x="832" y="544" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#8B929B">3.2x</text><text x="936" y="544" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$58</text><line x1="52" y1="566" x2="948" y2="566" stroke="#20262F" stroke-width="1"/><text x="64" y="600" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" font-weight="800" letter-spacing="1.5" fill="#F2EEE7">CTV</text><rect x="520" y="587" width="125" height="14" rx="7" fill="#EA5B2A" opacity="1"/><text x="832" y="600" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="19" font-weight="800" fill="#F07C4F">2.6x</text><text x="936" y="600" text-anchor="end" font-family="Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="18" font-weight="500" fill="#AEB5BE">$74</text></svg>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="panel-dark poster--tight">
+    <div class="wrap">
+      <span class="kicker">What you get</span>
+      <h2 class="display-m" style="margin-block:1.3rem 1.6rem;max-width:24ch">Measurement capabilities.</h2>
+      <div class="benefits">
+        <div class="benefit"><h3>ROAS reporting</h3><p>Return on ad spend by channel, campaign, and creative, measured against your actual revenue.</p></div>
+        <div class="benefit"><h3>Multi-touch attribution</h3><p>Last-touch and multi-touch models, in single-channel and cross-channel views.</p></div>
+        <div class="benefit"><h3>Conversion reporting and CRO</h3><p>Where buyers drop off, and what we are changing to fix it.</p></div>
+        <div class="benefit"><h3>Incrementality testing</h3><p>Controlled market tests that measure the sales your advertising generated.</p></div>
+        <div class="benefit"><h3>Measurement triangulation</h3><p>Attribution, lift tests, and media mix modeling cross-checked against each other.</p></div>
+        <div class="benefit"><h3>Plan versus actual</h3><p>Planned performance compared against delivered results, reported for every campaign.</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="wrap poster--tight" style="padding-bottom:clamp(4rem,8vh,6rem)">
+    <span class="kicker">Get started</span>
+    <h2 class="display-m" style="margin-block:1.3rem 1.5rem;max-width:18ch">Tell us about your business.</h2>
+    <div class="actions" style="margin-top:1.2rem">
+      <a class="act" href="../index.html#contact">Contact us</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="colophon" style="margin-top:0;border-top:0;padding-top:0">
+      <span>© 2026 Liftwork</span>
+      <span><a href="../index.html" style="color:inherit;text-decoration:none">Home</a> &nbsp;·&nbsp; <a href="../privacy/index.html" style="color:inherit;text-decoration:none">Privacy</a> &nbsp;·&nbsp; <a href="../data-deletion/index.html" style="color:inherit;text-decoration:none">Delete my data</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var c=document.getElementById('nav-check'), n=document.getElementById('site-nav');
+  if(c&&n){ n.addEventListener('click',function(e){ if(e.target.tagName==='A'){c.checked=false;} }); }
+})();
+</script>
+
+<script src="../consent.js" defer></script>
+</body></html>
