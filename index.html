@@ -203,8 +203,8 @@ section[id]{scroll-margin-top:var(--head-h)}
 
 @keyframes tdrift{to{transform:translate(var(--dx),var(--dy))}}
 .targ-pulse{opacity:0;animation:tpulse 6s ease-out infinite;transform-origin:450px 445px}
-.tdot{animation:tdrift var(--du) ease-in-out var(--de) infinite alternate,tblink calc(var(--du)*.38) ease-in-out var(--de) infinite}
-@keyframes tblink{0%,100%{opacity:.3}50%{opacity:1}}
+.tdot{animation:tdrift var(--du) ease-in-out var(--de) infinite alternate,tblink calc(var(--du)*.28) ease-in-out var(--de) infinite}
+@keyframes tblink{0%,100%{opacity:.06}50%{opacity:1}}
 @keyframes tpulse{0%{opacity:.5;transform:scale(.78)}70%{opacity:0;transform:scale(1.12)}100%{opacity:0;transform:scale(1.12)}}
 @media (min-width:940px){.hero .plate .hero-net{width:142%;max-width:none;margin:-13% -19%}}
 .net-rings circle{fill:none;stroke:#20272F;stroke-width:1}
